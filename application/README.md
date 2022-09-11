@@ -38,4 +38,7 @@ mpiexec -np 8 python imagenet_train.py --nz=2 --width=255
 ```
 It seems that `--width` should be the same as command above or compression code cannot work
 
-
+## Official Demo
+Remember download followings:
+- Download [ImageNet (unscaled) model checkpoints](https://www.dropbox.com/s/cbpnu3cm6fnnsf8/imagenetcrop_checkpoints.zip?dl=1) and unpack in ``/model/params/imagenetcrop``
+- Download [ImageNet (unscaled) and DEMO latent space discretization bins](https://www.dropbox.com/s/un7hdj3hwmq1mlt/imagenetcrop_bins.zip?dl=1) and unpack in ``/bins``
