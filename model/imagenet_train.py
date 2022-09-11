@@ -729,6 +729,7 @@ def test(model, device, epoch, ema, data_loader, tag, root_process):
 
     # setup the reconstruction dataset
     recon_dataset = None
+    # nbatches should be bigger than 1 or nbatches-1 == 0 in recon_batch_idx which is invalid
     nbatches = data_loader.batch_sampler.sampler.num_samples // data_loader.batch_size
     recon_batch_idx = int(torch.Tensor(1).random_(0, nbatches - 1))
 
