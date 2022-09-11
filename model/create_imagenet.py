@@ -1,5 +1,5 @@
 import numpy as np
-import scipy.ndimage
+import cv2
 import os
 from os import listdir
 from os.path import isfile, join
@@ -19,7 +19,7 @@ def convert_path_to_npy(*, path='~/train_32x32', outfile='~/train_32x32.npy'):
     # check all images for correct shapes etc. and dump them into
     for i in tqdm(range(len(files))):
         print(i)
-        img = scipy.ndimage.imread(join(path, files[i]))
+        img = cv2.imread(join(path, files[i]))
         img = img.astype('uint8')
         assert img.shape == (32, 32, 3)
         assert np.max(img) <= 255
@@ -35,7 +35,11 @@ def convert_path_to_npy(*, path='~/train_32x32', outfile='~/train_32x32.npy'):
     assert np.min(imgs) >= 0
     print('Total number of images is:', imgs.shape[0])
     print('All assertions done, dumping into npy file')
-    os.mkdir(os.path.dirname(os.path.abspath(outfile)))
+
+    output_dir = os.path.dirname(os.path.abspath(outfile))
+    if not os.path.exists(output_dir):
+        os.makedirs(os.path.dirname(os.path.abspath(outfile)))
+    print("Create imagenet data in: %s" % output_dir)
     np.save(outfile, imgs)
 
 if __name__ == '__main__':
