@@ -6,6 +6,8 @@ Up to now I test 32x32 image, and train successfully with small resnet's depth.
 However, official code `imagenet_compress.py` seems to support specific depth like 255 for 2 nz.
 Limited by hardware, I cannot train such a big network thus cannot finish compress progress.
 
+> Some empty directories need to be made
+
 ## Pesudo-image
 Use `utils/processor.py` to slice and reconstruct video.
 Before using, change `file_path` in it.
