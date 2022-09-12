@@ -8,7 +8,7 @@ Limited by hardware, I cannot train such a big network thus cannot finish compre
 
 > Some empty directories need to be made
 
-## Pesudo-image
+## pseudo-image
 Use `utils/processor.py` to slice and reconstruct video.
 Before using, change `file_path` in it.
 ```shell
@@ -19,7 +19,7 @@ python utils/processor.py --mode 1  # image to video
 ## Data preparation
 Only for 32x32 imagenet format, can refer to official tutorial
 
-Move pesudo-images into `bitswap/model/data/train_32x32` and `bitswap/model/data/valid_32x32`
+Move pseudo-images into `bitswap/model/data/train_32x32` and `bitswap/model/data/valid_32x32`
 then
 ```shell
 cd bitswap/model/

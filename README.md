@@ -1,4 +1,4 @@
-# Bit-Swap
+/home/zrh/Downloads/imagenetcrop_checkpoints/nz4# Bit-Swap
 
 Code for reproducing results of [Bit-Swap: Recursive Bits-Back Coding for Lossless Compression with Hierarchical Latent Variables](https://arxiv.org/abs/1905.06845), appearing at [International Conference on Machine Learning 2019](https://icml.cc/).
 

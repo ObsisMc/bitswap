@@ -12,9 +12,9 @@ reconstruct_data_path = os.path.join(os.path.split(__file__)[0], "../reconstruct
 # TODO: change file_path
 file_path = "/home/zrh/Repository/gitrepo/ZhiHuiLin_Internship/main/data/plane.mp4"
 
-# use bytes data to get a pesudo-image (.jpg)
+# use bytes data to get a pseudo-image (.jpg)
 img_shape = (32, 32)
-img_channel = 3  # every 3 bytes form a pesudo-pixel with 3 channels
+img_channel = 3  # every 3 bytes form a pseudo-pixel with 3 channels
 img_scale = img_shape[0] * img_shape[1]
 block_size = img_channel * img_scale  # [block_size] bytes form a complete image
 
@@ -24,7 +24,7 @@ max_iter_n = np.inf
 
 def byte_reader():
     """
-    read byte one by one and generate pesudo-img.
+    read byte one by one and generate pseudo-img.
 
     every consecutive 3 bytes are a pixel, then concat all pixels into a image
     """
@@ -32,29 +32,29 @@ def byte_reader():
     stop_n = min(file_size, max_iter_n)
     with open(file_path, "rb") as f:
         pixl = np.zeros(img_channel)
-        pesudo_img = np.zeros((img_scale, img_channel)).astype(int)
+        pseudo_img = np.zeros((img_scale, img_channel)).astype(int)
 
         offset_i = 1
         for i in tqdm(range(1, stop_n + 1), desc="Convert bytes of video to image"):
             byte = f.read(1)
             pixl[(i - 1) % 3] = int.from_bytes(byte, "big")
             if i % 3 == 0:
-                pesudo_img[(i - offset_i) // 3] = pixl
+                pseudo_img[(i - offset_i) // 3] = pixl
                 pixl = np.zeros(img_channel)
             if i % block_size == 0:
-                yield pesudo_img.reshape((img_shape[0], img_shape[1], img_channel))
-                pesudo_img = np.zeros((img_scale, img_channel)).astype(int)
+                yield pseudo_img.reshape((img_shape[0], img_shape[1], img_channel))
+                pseudo_img = np.zeros((img_scale, img_channel)).astype(int)
                 offset_i += block_size
             # when last pixels cannot make up a complex image
             elif i == stop_n:
                 # FIXME: haven't take a case into consideration: what if the last several bytes are 0?
-                pesudo_img[(i - offset_i) // 3] = pixl
-                yield pesudo_img.reshape((img_shape[0], img_shape[1], img_channel))
+                pseudo_img[(i - offset_i) // 3] = pixl
+                yield pseudo_img.reshape((img_shape[0], img_shape[1], img_channel))
 
 
 def video2byte_img():
     """
-    slice video into byte blocks and use them to generate pesudo-images (bit depth is 8)
+    slice video into byte blocks and use them to generate pseudo-images (bit depth is 8)
     """
     if not os.path.exists(processed_data_path):
         os.makedirs(processed_data_path)
@@ -74,10 +74,10 @@ def video2byte_img():
 
 def img2video(name="test.mp4", img_dir="/home/zrh/Repository/gitrepo/bitswap/application/processed_data/plane"):
     """
-    concat pesudo-images (bit depth can be any, but channel should be 3) to get original video
+    concat pseudo-images (bit depth can be any, but channel should be 3) to get original video
 
     @param name: reconstructed video's name
-    @param img_dir: directory containing pesudo-images
+    @param img_dir: directory containing pseudo-images
     """
 
     if not os.path.exists(reconstruct_data_path):
@@ -117,7 +117,7 @@ def print_byte():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--mode', default=0, type=int)  # 0: video to pesudo-images, 1: image to video
+    parser.add_argument('--mode', default=0, type=int)  # 0: video to pseudo-images, 1: image to video
 
     args = parser.parse_args()
     mode = args.mode
